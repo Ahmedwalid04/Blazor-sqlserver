@@ -1,14 +1,7 @@
 ﻿@page "/"
-
-@inject Productservices ProductServices
-
 <PageTitle>Home</PageTitle>
-
 <h1 class="title">Store Database</h1>
-
 <h3>Product List</h3>
-
-
 <table class="table">
     <thead>
         <tr>
@@ -38,7 +31,6 @@
 <EditForm Model="currentProduct" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
     <div class="form-group">
         <label for="name">Name</label>
         <InputText id="name" class="form-control" @bind-Value="currentProduct.Name" />
@@ -49,35 +41,17 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </EditForm>
-
 @code {
-    private List<Product> products = new();
+    private List<Product> products = [];
     private Product currentProduct = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        products = await ProductServices.GetProductsAsync();
-    }
-
+    protected override async Task OnInitializedAsync() => products = await ProductServices.GetProductsAsync();
     private async Task HandleValidSubmit()
     {
-        if (currentProduct.Id == 0)
-        {
-            await ProductServices.AddProductAsync(currentProduct);
-        }
-        else
-        {
-            await ProductServices.UpdateProductAsync(currentProduct);
-        }
-        currentProduct = new Product();
-        products = await ProductServices.GetProductsAsync();
+        if (currentProduct.Id is 0) await ProductServices.AddProductAsync(currentProduct);
+        else await ProductServices.UpdateProductAsync(currentProduct);
+        (currentProduct, products) = (new(), await ProductServices.GetProductsAsync());
     }
-
-    private void EditProduct(Product product)
-    {
-        currentProduct = product;
-    }
-
+    private void EditProduct(Product product) => currentProduct = product;
     private async Task DeleteProduct(int productId)
     {
         await ProductServices.DeleteProductAsync(productId);
