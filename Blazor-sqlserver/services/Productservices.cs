@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Blazor.Data;
 public class Productservices
 {
     private readonly ApplicationDBcontext _context;
@@ -8,18 +9,18 @@ public class Productservices
         _context = context;
     }
     //get all products
-    public async Task<List<Product>> GetProducts()
+    public async Task<List<Product>> GetProductsAsync()
     {
         return await _context.Product.ToListAsync();
     }
     //update product
-    public async Task UpdateProduct(Product product)
+    public async Task UpdateProductAsync(Product product)
     {
         _context.Product.Update(product);
         await _context.SaveChangesAsync();
     }
     //add product
-    public async Task AddProduct(Product product)
+    public async Task AddProductAsync(Product product)
     {
         _context.Product.Add(product);
         await _context.SaveChangesAsync();
