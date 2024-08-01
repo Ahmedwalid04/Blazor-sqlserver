@@ -8,6 +8,7 @@ namespace Blazor.Data
     public class ApplicationDBcontext : DbContext
     {
         public DbSet<Product> Product { get; set; }
+        public DbSet<Users> Users { get; set; }
 
         public ApplicationDBcontext(DbContextOptions<ApplicationDBcontext> options) : base(options)
         {
