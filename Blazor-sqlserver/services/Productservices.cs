@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Blazor.Data;
-public class Productservices
+using Blazor.Models;
+namespace Blazor.Services;
+public class Productservices(ApplicationDBcontext context)
 {
-    private readonly ApplicationDBcontext _context;
+    private readonly ApplicationDBcontext _context = context;
 
-    public Productservices(ApplicationDBcontext context)
-    {
-        _context = context;
-    }
     //get all products
     public async Task<List<Product>> GetProductsAsync()
     {

@@ -1,5 +1,9 @@
 ﻿@page "/Home"
-
+@using Blazor.Data
+@using Blazor.Models
+@using Blazor.Services
+@inject NavigationManager Navigation
+@inject Loginservices loginservices
 @inject Productservices ProductServices
 
 <PageTitle>Home</PageTitle>
@@ -51,12 +55,17 @@
 </EditForm>
 
 @code {
+    private Users user = new();
     private List<Product> products = new();
     private Product currentProduct = new();
+    
+
+   
 
     protected override async Task OnInitializedAsync()
     {
         products = await ProductServices.GetProductsAsync();
+         
     }
 
     private async Task HandleValidSubmit()
@@ -83,4 +92,6 @@
         await ProductServices.DeleteProductAsync(productId);
         products = await ProductServices.GetProductsAsync();
     }
+    
+    
 }

@@ -1,6 +1,8 @@
 using Blazor.Data;
 using Blazor_sqlserver.Components;
 using Microsoft.EntityFrameworkCore;
+using Blazor.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDBcontext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<Productservices>();
+builder.Services.AddScoped<Loginservices>();
 
 
 // Add services to the container.
@@ -25,6 +28,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 app.UseStaticFiles();
 app.UseAntiforgery();

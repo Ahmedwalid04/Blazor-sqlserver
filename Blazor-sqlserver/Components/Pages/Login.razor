@@ -1,6 +1,9 @@
-﻿@page "/"
+﻿@using Blazor.Data
+@using Blazor.Models
+@using Blazor.Services
+@page "/"
 @inject NavigationManager Navigation
-@inject ApplicationDBcontext ApplicationDBcontext
+@inject Loginservices loginservices
 
 <h3>Login</h3>
 
@@ -27,21 +30,21 @@
 </EditForm>
 
 @code {
-    private User user = new User(); 
-    private string errorMessage;
+    private Users user = new Users();
+    private string ? errorMessage;
 
-    private async Task HandleLogin()
+
+    private async void HandleLogin()
     {
-        var dbUser = await DbContext.Users
-            .FirstOrDefaultAsync(u => u.UserName == user.UserName && u.Password == user.Password);
-
-        if (dbUser != null)
+        errorMessage = null;
+        var result = await loginservices.Login(user.UserName,user.Password);
+        if (result)
         {
             Navigation.NavigateTo("/Home");
         }
         else
         {
-            errorMessage = "Invalid username or password.";
+            errorMessage = "Invalid username or password";
         }
-    }
+    } 
 }
