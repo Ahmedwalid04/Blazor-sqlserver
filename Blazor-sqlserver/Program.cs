@@ -12,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDBcontext>(options =>
 builder.Services.AddScoped<Productservices>();
 builder.Services.AddScoped<Loginservices>();
 
+//builder.Services.AddSingleton<UserService>();
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
