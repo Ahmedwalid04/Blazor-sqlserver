@@ -32,4 +32,14 @@
 
 @code{
     protected override  void OnInitialized() =>  StateContainer.OnChange += StateHasChanged;
+    protected override async Task OnAfterRenderAsync(bool fr)    {
+       if (fr)
+        {
+     
+        var x =   await LocalStorage.GetAsync<bool?>("IsLoggedIn");
+            if (x.Value.HasValue) UserService.IsLoggedIn = (bool)x.Value;
+            StateHasChanged();
+            Console.WriteLine("hello");
+        }
+    }
 }
