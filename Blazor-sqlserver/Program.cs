@@ -2,6 +2,7 @@ using Blazor.Data;
 using Blazor_sqlserver.Components;
 using Microsoft.EntityFrameworkCore;
 using Blazor.Services;
+using Arora.Blazor.StateContainer;
 
 
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDBcontext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<Productservices>();
 builder.Services.AddScoped<Loginservices>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddStateContainer();
 
 //builder.Services.AddSingleton<UserService>();
 
