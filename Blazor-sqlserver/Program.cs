@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Blazor.Services;
 using Arora.Blazor.StateContainer;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDBcontext>(options =>
@@ -14,9 +12,6 @@ builder.Services.AddScoped<Productservices>();
 builder.Services.AddScoped<Loginservices>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddStateContainer();
-
-//builder.Services.AddSingleton<UserService>();
-
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -31,14 +26,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
-
-
 app.UseStaticFiles();
 app.UseAntiforgery();
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
 app.Run();

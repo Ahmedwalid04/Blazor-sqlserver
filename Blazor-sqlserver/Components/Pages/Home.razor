@@ -9,10 +9,7 @@
 <PageTitle>Home</PageTitle>
 
 <h1 class="title">Store Database</h1>
-
 <h3>Product List</h3>
-
-
 <table class="table">
     <thead>
         <tr>
@@ -60,49 +57,24 @@
     private List<Product> products = new();
     private Product currentProduct = new();
 
-
-
-
     protected override async Task OnInitializedAsync()
     {
         products = await ProductServices.GetProductsAsync();
-    
-    
-        // if (!loginservices.IsLoggedIn())
-        // {
-        //     Navigation.NavigateTo("/login");
-        //     return;
-        // }
 
-       
     }
-        
     private async Task HandleValidSubmit()
     {
-        if (currentProduct.Id == 0)
-        {
-            await ProductServices.AddProductAsync(currentProduct);
-        }
-        else
-        {
-            await ProductServices.UpdateProductAsync(currentProduct);
-        }
+        await (currentProduct.Id == 0 ?
+             ProductServices.AddProductAsync(currentProduct) :
+             ProductServices.UpdateProductAsync(currentProduct));
         currentProduct = new Product();
         products = await ProductServices.GetProductsAsync();
     }
-
-    private void EditProduct(Product product)
-    {
-        currentProduct = product;
-    }
-
+    private void EditProduct(Product product) => currentProduct = product;
     private async Task DeleteProduct(int productId)
     {
         await ProductServices.DeleteProductAsync(productId);
         products = await ProductServices.GetProductsAsync();
-    }
 
-   
-    
-    
+    }
 }

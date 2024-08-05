@@ -5,7 +5,6 @@
 <EditForm Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
     <div class="form-group">
         <label for="userName">Username</label>
         <InputText id="userName" class="form-control" @bind-Value="user.UserName" />
@@ -31,18 +30,16 @@
     private async void HandleLogin()
     {
         errorMessage = null;
-        var result = await loginservices.Login(user.UserName,user.Password);
-        if (result)
+        UserService.IsLoggedIn = await loginservices.Login(user.UserName, user.Password);
+
+        if (UserService.IsLoggedIn)
         {
-            UserService.IsLoggedIn = true;
-         await LocalStorage.SetAsync("IsLoggedIn", true);
+            await LocalStorage.SetAsync("IsLoggedIn", true);
             StateContainer.NotifyStateChanged();
-           // Navigation.NavigateTo("/Home");
         }
         else
         {
             errorMessage = "Invalid username or password";
         }
-    } 
-
+    }
 }
