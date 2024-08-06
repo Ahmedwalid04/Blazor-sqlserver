@@ -3,8 +3,8 @@
 @using Blazor.Models
 @using Blazor.Services
 @inject NavigationManager Navigation
-@inject Loginservices loginservices
-@inject Productservices ProductServices
+@inject LoginServices loginservices
+@inject ProductServices ProductServices
 
 <PageTitle>Home</PageTitle>
 
@@ -57,11 +57,8 @@
     private List<Product> products = new();
     private Product currentProduct = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        products = await ProductServices.GetProductsAsync();
+    protected override async Task OnInitializedAsync() => products = await ProductServices.GetProductsAsync();
 
-    }
     private async Task HandleValidSubmit()
     {
         await (currentProduct.Id == 0 ?

@@ -2,7 +2,7 @@
 using Blazor.Data;
 using Blazor.Models;
 namespace Blazor.Services;
-public class Productservices(ApplicationDBcontext _context)
+public class ProductServices(ApplicationDBcontext _context)
 {
     //get all products
     public async Task<List<Product>> GetProductsAsync() => await _context.Product.ToListAsync();
