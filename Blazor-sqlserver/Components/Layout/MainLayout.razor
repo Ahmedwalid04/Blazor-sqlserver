@@ -34,7 +34,7 @@
         if (fr)
         {
             var x = await LocalStorage.GetAsync<bool?>("IsLoggedIn");
-            UserService.IsLoggedIn = x.Value.HasValue ? x.Value.Value : false;
+             UserService.IsLoggedIn =x.Value??false;
             StateHasChanged();
         }
     }

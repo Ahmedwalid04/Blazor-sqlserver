@@ -16,8 +16,11 @@ builder.Services.AddScoped<ProductServices>()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
-app.UseExceptionHandler("/Error", createScopeForErrors: true).UseHsts();
+
+if (!app.Environment.IsDevelopment())
+    app.UseExceptionHandler("/Error", createScopeForErrors: true).UseHsts();
+
 app.UseHttpsRedirection().UseStaticFiles().UseAntiforgery();
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+
 app.Run();

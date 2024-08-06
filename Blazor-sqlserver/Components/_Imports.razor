@@ -13,9 +13,9 @@
 @using Blazor.Data
 @using Blazor.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-
+@inject ProductServices ProductServices
 @inject NavigationManager Navigation
-@inject LoginServices loginservices
+@inject LoginServices LoginServices
 @inject ProtectedLocalStorage LocalStorage
 @inject UserService UserService
 @inject StateContainer StateContainer

@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Blazor.Data;
 namespace Blazor.Services;
-public class LoginServices(ApplicationDBcontext db)
+public class LoginServices(ApplicationDBcontext DB)
 {
-    private readonly ApplicationDBcontext _db = db;
-    public async Task<bool> Login(string username, string? password) =>
-        await _db.Users.FirstOrDefaultAsync(u => u.UserName == username && u.Password == password) != null;
+    public async Task<bool> Login(string? username, string? password) =>
+        (await DB.Users.AnyAsync(u => u.UserName.Equals(username, StringComparison.CurrentCultureIgnoreCase) && u.Password == password));
 }
 

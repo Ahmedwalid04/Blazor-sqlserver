@@ -30,7 +30,7 @@
     private async void HandleLogin()
     {
         errorMessage = null;
-        UserService.IsLoggedIn = await loginservices.Login(user.UserName, user.Password);
+        UserService.IsLoggedIn = await LoginServices.Login(user.UserName, user.Password);
 
         if (UserService.IsLoggedIn)
         {

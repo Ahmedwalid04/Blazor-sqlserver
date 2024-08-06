@@ -1,11 +1,4 @@
 ﻿@page "/"
-@using Blazor.Data
-@using Blazor.Models
-@using Blazor.Services
-@inject NavigationManager Navigation
-@inject LoginServices loginservices
-@inject ProductServices ProductServices
-
 <PageTitle>Home</PageTitle>
 
 <h1 class="title">Store Database</h1>
@@ -54,24 +47,22 @@
 
 @code {
     private Users user = new();
-    private List<Product> products = new();
+    private List<Product> products = [];
     private Product currentProduct = new();
 
     protected override async Task OnInitializedAsync() => products = await ProductServices.GetProductsAsync();
 
     private async Task HandleValidSubmit()
     {
-        await (currentProduct.Id == 0 ?
+        await (currentProduct.Id is 0 ?
              ProductServices.AddProductAsync(currentProduct) :
              ProductServices.UpdateProductAsync(currentProduct));
-        currentProduct = new Product();
-        products = await ProductServices.GetProductsAsync();
+        (currentProduct, products) = (new(), await ProductServices.GetProductsAsync());
     }
     private void EditProduct(Product product) => currentProduct = product;
     private async Task DeleteProduct(int productId)
     {
         await ProductServices.DeleteProductAsync(productId);
         products = await ProductServices.GetProductsAsync();
-
     }
 }
