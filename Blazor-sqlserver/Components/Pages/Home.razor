@@ -68,11 +68,8 @@
         products = ProductServices.SelectAllProducts().ToList();
     }
 
-    private void EditProduct(Product product)
-    {
-        currentProduct = product;
-    }
-
+    private void EditProduct(Product product) =>currentProduct = product;
+   
     private async Task DeleteProduct(int productId)
     {
         ProductServices.RemoveProduct(productId);
