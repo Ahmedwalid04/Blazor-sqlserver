@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 <PageTitle>Home</PageTitle>
 
 <h1 class="title">Store Database</h1>
@@ -47,22 +48,35 @@
 
 @code {
     private Users user = new();
-    private List<Product> products = [];
+    private List<Product> products = new();
     private Product currentProduct = new();
 
-    protected override async Task OnInitializedAsync() => products = await ProductServices.GetProductsAsync();
+    protected override async Task OnInitializedAsync()
+         => products = ProductServices.SelectAllProducts().ToList();
 
-    private async Task HandleValidSubmit()
+    private void HandleValidSubmit()
     {
-        await (currentProduct.Id is 0 ?
-             ProductServices.AddProductAsync(currentProduct) :
-             ProductServices.UpdateProductAsync(currentProduct));
-        (currentProduct, products) = (new(), await ProductServices.GetProductsAsync());
+        if (currentProduct.Id == 0)
+        {
+            ProductServices.AddProduct(currentProduct);
+        }
+        else
+        {
+            ProductServices.ModifyProduct(currentProduct);
+        }
+        currentProduct = new();
+        products = ProductServices.SelectAllProducts().ToList();
     }
-    private void EditProduct(Product product) => currentProduct = product;
+
+    private void EditProduct(Product product)
+    {
+        currentProduct = product;
+    }
+
     private async Task DeleteProduct(int productId)
     {
-        await ProductServices.DeleteProductAsync(productId);
-        products = await ProductServices.GetProductsAsync();
+        ProductServices.RemoveProduct(productId);
+        products = ProductServices.SelectAllProducts().ToList();
     }
 }
+

@@ -28,13 +28,13 @@
 </div>
 
 @code{
-    protected override  void OnInitialized() =>  StateContainer.OnChange += StateHasChanged;
+    protected override void OnInitialized() => StateContainer.OnChange += StateHasChanged;
     protected override async Task OnAfterRenderAsync(bool fr)
     {
         if (fr)
         {
             var x = await LocalStorage.GetAsync<bool?>("IsLoggedIn");
-             UserService.IsLoggedIn =x.Value??false;
+            UserService.IsLoggedIn = x.Value ?? false;
             StateHasChanged();
         }
     }
