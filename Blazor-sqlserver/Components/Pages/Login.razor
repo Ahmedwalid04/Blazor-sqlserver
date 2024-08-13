@@ -30,8 +30,8 @@
     private async Task HandleLogin()
     {
         errorMessage = null;
-        UserService.IsLoggedIn = await LoginServices.Login(user.UserName, user.Password);
-        if (UserService.IsLoggedIn) await LocalStorage.SetAsync("IsLoggedIn", true);
+        LoginServices.IsLoggedIn = await LoginServices.Login(user.UserName, user.Password);
+        if (LoginServices.IsLoggedIn) await LocalStorage.SetAsync("IsLoggedIn", true);
         else errorMessage = "Invalid username or password";
         StateContainer.NotifyStateChanged();
     }

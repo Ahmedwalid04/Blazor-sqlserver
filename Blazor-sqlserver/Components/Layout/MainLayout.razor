@@ -9,7 +9,7 @@
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
         <article class="content px-4">
-            @if (UserService.IsLoggedIn)
+            @if (LoginServices.IsLoggedIn)
             {
                 @Body
             }
@@ -34,7 +34,7 @@
         if (fr)
         {
             var x = await LocalStorage.GetAsync<bool?>("IsLoggedIn");
-            UserService.IsLoggedIn = x.Value ?? false;
+            LoginServices.IsLoggedIn = x.Value ?? false;
             StateHasChanged();
         }
     }
