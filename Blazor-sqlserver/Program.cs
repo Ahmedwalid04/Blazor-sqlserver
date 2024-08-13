@@ -4,8 +4,8 @@ using Arora.Blazor.StateContainer;
 using services.Foundation;
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<StorageBroker>();
-builder.Services.AddScoped<ProductServices>()
+builder.Services.AddTransient<StorageBroker>()
+                .AddScoped<ProductServices>()
                 .AddScoped<LoginServices>()
                 .AddStateContainer()
                 .AddRazorComponents()

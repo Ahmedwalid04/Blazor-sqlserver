@@ -33,9 +33,9 @@
     {
         if (fr)
         {
-            var x = await LocalStorage.GetAsync<bool?>("IsLoggedIn");
-            LoginServices.IsLoggedIn = x.Value ?? false;
-            StateHasChanged();
+           await LoginServices.AutoLogin();
+
+      //      StateHasChanged();
         }
     }
 }
