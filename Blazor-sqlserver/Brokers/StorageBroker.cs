@@ -5,11 +5,9 @@ using System.Data;
 namespace Task.Broker.Storages;
 public class StorageBroker(IConfiguration configuration)
 {
-    public IDbConnection DbConnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
     public SqlConnection CreateConnection() => new(ConnectionString);
     static CommandType StoredProc => CommandType.StoredProcedure;
     string? ConnectionString => configuration.GetConnectionString("DefaultConnection");
-
     public void InsertProduct(string? Name, decimal? Price)
     {
         using var connection = new SqlConnection(ConnectionString);
@@ -28,12 +26,12 @@ public class StorageBroker(IConfiguration configuration)
     public Product SelectProduct(int? Id)
     {
         using var connection = new SqlConnection(ConnectionString);
-        return connection.QuerySingleOrDefault<Product>("SelectProduct", new { Id }, commandType: StoredProc) ?? new Product();
+        return connection.QueryFirstOrDefault<Product>("SelectProduct", new { Id }, commandType: StoredProc) ?? new Product();
     }
     public IEnumerable<Product> SelectAllProducts()
     {
         using var connection = new SqlConnection(ConnectionString);
-        return connection.Query<Product>("SelectListProduct", commandType: StoredProc).ToList();
+        return connection.Query<Product>("SelectListProduct", commandType: StoredProc);
     }
 
 
