@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using Task.Broker.Storages;
-namespace Blazor.Services;
+namespace services.Foundation;
 public class LoginServices(StorageBroker storageBroker)
 {
+    public bool IsLoggedIn { get; set; }
     public async Task<bool> Login(string? username, string? password)
     {
         using (var connection = storageBroker.CreateConnection())
